@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://mediumblue-fish-694323.hostingersite.com/</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://mediumblue-fish-694323.hostingersite.com/jobs/job-15.jpg</image:loc>
+      <image:title>Finished heritage row-house re-roof — Shane Roofing Guru</image:title>
+      <image:caption>A completed shingle re-roof on a downtown Saint John's heritage row.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mediumblue-fish-694323.hostingersite.com/jobs/job-04.jpg</image:loc>
+      <image:title>Full re-roof of a 3-storey historic building in Saint John's</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mediumblue-fish-694323.hostingersite.com/jobs/job-12.jpg</image:loc>
+      <image:title>Heritage church re-roof — slate tear-off and re-shingle</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mediumblue-fish-694323.hostingersite.com/jobs/job-09.jpg</image:loc>
+      <image:title>Heritage mansard re-roof with full scaffolding</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mediumblue-fish-694323.hostingersite.com/quote.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

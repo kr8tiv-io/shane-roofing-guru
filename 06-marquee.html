@@ -1,0 +1,87 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shane Dooley — 06 Marquee</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E0E0E;--fg:#F2EFEA;--mute:#6B6B6B;--orange:#FF5A1F}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:"Space Grotesk",sans-serif}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden}
+.bg video{width:100%;height:100%;object-fit:cover;filter:contrast(1.1) saturate(.6) brightness(.55)}
+.bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(14,14,14,.2) 0%,rgba(14,14,14,.85) 80%);pointer-events:none}
+.scrim{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.18) 2px 3px)}
+.stage{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;gap:0;pointer-events:none}
+.line{display:flex;white-space:nowrap;font-family:"Archivo Black";font-size:clamp(80px,16vw,260px);line-height:.85;letter-spacing:-.04em;text-transform:uppercase;mix-blend-mode:difference;color:#fff;will-change:transform}
+.line.b{color:var(--orange);mix-blend-mode:normal;font-style:italic;font-family:"Space Grotesk";font-weight:700;letter-spacing:-.02em}
+.line span{padding-right:.4em;display:inline-flex;align-items:center;gap:.4em}
+.line span::after{content:"●";font-size:.32em;color:var(--orange);transform:translateY(-.6em);display:inline-block;mix-blend-mode:normal}
+.line.b span::after{color:#fff}
+.ui{position:fixed;inset:0;z-index:3;pointer-events:none;padding:32px 40px;display:flex;flex-direction:column;justify-content:space-between;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#cfcbc2}
+.ui .row{display:flex;justify-content:space-between;align-items:flex-start}
+.brand{font-family:"Archivo Black";font-size:12px;letter-spacing:.2em}
+.brand b{color:var(--orange)}
+.coords{text-align:right;line-height:1.7}
+.bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.tag{max-width:480px;line-height:1.6;color:#bdb9b1;text-transform:none;letter-spacing:.04em;font-size:13px}
+.tag b{color:var(--fg);text-transform:uppercase;letter-spacing:.1em;font-family:"Archivo Black";font-size:11px;display:block;margin-bottom:8px}
+.cta{pointer-events:auto;background:var(--orange);color:#0E0E0E;padding:14px 22px;text-decoration:none;font-family:"Archivo Black";font-size:12px;letter-spacing:.08em;display:inline-flex;align-items:center;gap:10px}
+.cta::after{content:"→"}
+</style>
+</head>
+<body>
+<div class="bg"><video autoplay muted loop playsinline src="hero.mp4"></video></div>
+<div class="scrim"></div>
+<div class="stage">
+  <div class="line" id="L1"></div>
+  <div class="line b" id="L2"></div>
+  <div class="line" id="L3"></div>
+</div>
+<div class="ui">
+  <div class="row">
+    <div class="brand">SHANE DOOLEY · <b>ROOFING GURU</b></div>
+    <div class="coords">SAINT JOHN'S NL<br>47.5615°N · 52.7126°W</div>
+  </div>
+  <div class="bottom">
+    <div class="tag"><b>// THE PITCH</b>Twenty winters under the North Atlantic. Membrane, cedar, slate, copper, steep-pitch — Shane shows up where others won't.</div>
+    <a class="cta" href="#quote">REQUEST A QUOTE</a>
+  </div>
+</div>
+<script>
+const phrases = [
+  ["ROOFING GURU","ANY ROOF","ANY WEATHER","ANY CITY","NO FEAR"],
+  ["BUILT FOR THE ROCK","SAINT JOHN'S","NL.0432","SHANE DOOLEY"],
+  ["MEMBRANE","CEDAR","SLATE","COPPER","STEEP-PITCH","LOW-SLOPE","HISTORIC","COMMERCIAL"]
+];
+const lines = [document.getElementById('L1'), document.getElementById('L2'), document.getElementById('L3')];
+const speeds = [40, -55, 35]; // px / sec, negative = reverse direction
+const offsets = [0, 0, 0];
+
+lines.forEach((el, i) => {
+  // duplicate phrase set enough times to overflow far past viewport for seamless loop
+  const set = phrases[i].map(p => `<span>${p}</span>`).join('');
+  el.innerHTML = (set+set+set+set+set);
+});
+
+let last = performance.now();
+function tick(now){
+  const dt = (now-last)/1000; last = now;
+  lines.forEach((el, i) => {
+    offsets[i] -= speeds[i]*dt;
+    // measure half width once child measurable (one repeat of full set)
+    const total = el.scrollWidth/4; // we duplicated 4x — wait actually 5x above. recompute.
+    const cycle = el.scrollWidth/5;
+    if(offsets[i] <= -cycle) offsets[i] += cycle;
+    if(offsets[i] >= 0) offsets[i] -= cycle;
+    el.style.transform = `translateX(${offsets[i]}px)`;
+  });
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script>
+
+<script src="sections.js"></script>
+</body>
+</html>

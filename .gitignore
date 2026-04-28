@@ -1,0 +1,23 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+
+# build artifacts (we ship pre-built static files)
+dist/
+node_modules/
+.cache/
+
+# editor configs
+.vscode/
+.idea/
+*.swp
+
+# concept exploration archives we don't ship
+/_archive/
+/__archive__/
+*.zip
+
+# environment
+.env
+.env.local

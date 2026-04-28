@@ -1,0 +1,98 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shane Dooley — 04 Dossier</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2EFEA;--ink:#0E0E0E;--mute:#6B6B6B;--line:#1F1F1F;--orange:#FF5A1F;--paper:#E9E5DC}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",sans-serif}
+.frame{position:fixed;inset:0;display:grid;grid-template-columns:1.35fr 1fr}
+.left{position:relative;padding:48px 56px 36px;display:flex;flex-direction:column;border-right:1px solid var(--ink)}
+.left::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent,transparent 38px,rgba(14,14,14,.04) 38px,rgba(14,14,14,.04) 39px);pointer-events:none}
+.toprow{display:flex;justify-content:space-between;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:auto}
+.brand{font-family:"Archivo Black";font-size:13px;letter-spacing:.16em;color:var(--ink)}
+.brand b{color:var(--orange)}
+.fileref{text-align:right;line-height:1.6}
+.fileref b{color:var(--ink)}
+.head{margin-top:64px}
+.eyebrow{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.eyebrow .ln{flex:1;height:1px;background:var(--ink);opacity:.4}
+h1{font-family:"Archivo Black";font-size:clamp(56px,9.5vw,160px);line-height:.86;letter-spacing:-.025em;text-transform:uppercase}
+h1 i{font-style:italic;font-family:"Space Grotesk";font-weight:300;display:inline-block;margin-left:.05em;letter-spacing:-.01em}
+h1 .or{color:var(--orange)}
+.body{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:52px;max-width:920px}
+.body h3{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+.body p{font-size:15px;line-height:1.55;color:var(--ink)}
+.body p b{color:var(--orange)}
+.bot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;padding-top:36px;border-top:1px solid var(--ink)}
+.bot .meta{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);line-height:1.7}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);padding:14px 22px;text-decoration:none;font-family:"Archivo Black";font-size:12px;letter-spacing:.08em;text-transform:uppercase;transition:background .2s}
+.cta:hover{background:var(--orange);color:var(--ink)}
+.cta::after{content:"→"}
+.right{position:relative;background:var(--ink);overflow:hidden;display:flex;flex-direction:column}
+.right .videowrap{position:relative;flex:1;overflow:hidden}
+.right video{width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.85) brightness(.9)}
+.right .videowrap::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,14,14,0) 50%,rgba(14,14,14,.55));z-index:2}
+.scopebadge{position:absolute;top:24px;left:24px;font-family:"JetBrains Mono";font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--bg);background:rgba(14,14,14,.55);backdrop-filter:blur(8px);padding:8px 11px;border:1px solid rgba(242,239,234,.16);z-index:3;display:flex;align-items:center;gap:8px}
+.scopebadge .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 10px var(--orange)}
+.captionbar{position:absolute;left:0;right:0;bottom:0;padding:16px 22px;display:flex;justify-content:space-between;font-family:"JetBrains Mono";font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg);z-index:3}
+.captionbar b{color:var(--orange)}
+.right .strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(242,239,234,.14);background:#0a0a0a;color:var(--bg)}
+.strip .cell{padding:18px 22px;border-right:1px solid rgba(242,239,234,.14)}
+.strip .cell:last-child{border-right:none}
+.strip .k{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9c968c;margin-bottom:6px}
+.strip .v{font-family:"Archivo Black";font-size:18px;letter-spacing:.02em;text-transform:uppercase}
+.strip .v small{display:block;font-family:"JetBrains Mono";font-weight:400;font-size:10px;letter-spacing:.14em;color:#9c968c;margin-top:4px}
+@media (max-width:980px){.frame{grid-template-columns:1fr;grid-template-rows:1fr 1fr}.left{border-right:none;border-bottom:1px solid var(--ink)}}
+</style>
+</head>
+<body>
+<div class="frame">
+  <section class="left">
+    <div class="toprow">
+      <div class="brand">SHANE DOOLEY · <b>ROOFING GURU</b></div>
+      <div class="fileref">DOSSIER · 01<br><b>FILE NL.0432</b></div>
+    </div>
+    <div class="head">
+      <div class="eyebrow">SUBJECT · MASTER ROOFER &nbsp;<span class="ln"></span>&nbsp; SAINT JOHN'S NL</div>
+      <h1>Roofs <i>built for</i><span class="or"> the rock.</span></h1>
+    </div>
+    <div class="body">
+      <div>
+        <h3>// SCOPE</h3>
+        <p>Flat membrane, modified bitumen, EPDM, TPO, tar &amp; gravel. Asphalt shingle, cedar shake, slate, copper standing seam. <b>Steep-pitch, low-slope, historic, commercial — anywhere on the rock.</b></p>
+      </div>
+      <div>
+        <h3>// CREDENTIALS</h3>
+        <p>Twenty winters under the North Atlantic. Bonded, insured, <b>NL-licensed since 2006.</b> Emergency response inside 24 hrs. References on request — and we keep them recent.</p>
+      </div>
+    </div>
+    <div class="bot">
+      <div class="meta">© 2026 · BONDED &amp; INSURED<br>SAINT JOHN'S · NEWFOUNDLAND</div>
+      <a class="cta" href="#quote">REQUEST A SITE VISIT</a>
+    </div>
+  </section>
+  <aside class="right">
+    <div class="videowrap">
+      <video autoplay muted loop playsinline src="hero.mp4"></video>
+      <div class="scopebadge"><span class="dot"></span>EXHIBIT A · LIVE</div>
+      <div class="captionbar">
+        <span>EXHIBIT A · ROOFLINE / NL</span>
+        <span>47.5615°N · 52.7126°W</span>
+        <span><b>● REC</b> 04:32 NDT</span>
+      </div>
+    </div>
+    <div class="strip">
+      <div class="cell"><div class="k">JOBS / YR</div><div class="v">340<small>RES + COMMERCIAL</small></div></div>
+      <div class="cell"><div class="k">YEARS</div><div class="v">20<small>UNDER ATLANTIC</small></div></div>
+      <div class="cell"><div class="k">RESPONSE</div><div class="v">24h<small>EMERGENCY CALL</small></div></div>
+    </div>
+  </aside>
+</div>
+
+<script src="sections.js"></script>
+</body>
+</html>
