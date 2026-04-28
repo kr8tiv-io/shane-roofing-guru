@@ -1,7 +1,13 @@
+<div align="center">
+
+![Shane Roofing Guru — Saint John's NL · BBB A+](og-image.png)
+
 # Shane Roofing Guru — Saint John's, NL
 
 A site built for a Newfoundland roofer who climbs ladders other roofers won't.
 Designed and built by **[kr8tiv.io](https://kr8tiv.io)** — for a real local trade, on the rock, in winter.
+
+</div>
 
 [![Live](https://img.shields.io/badge/live-roofingguru.kr8tiv-FF5A1F?style=for-the-badge)](https://mediumblue-fish-694323.hostingersite.com/)
 [![BBB A+](https://img.shields.io/badge/BBB-A%2B%20Accredited-1F468A?style=for-the-badge)](https://www.bbb.org/ca/nl/st-johns/profile/roofing-contractors/rrr-construction-inc-0087-67408)
