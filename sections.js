@@ -98,20 +98,20 @@
     .sd-svc-bgvid{
       position:absolute;
       top:14%;
-      right:2%;
-      width:32%;
+      right:100px;            /* shifted left 100px from the right edge */
+      width:36%;
       height:62%;
       object-fit:cover;
       z-index:0;
       pointer-events:none;
-      opacity:.2;
+      opacity:.22;
       mix-blend-mode:screen;
       filter:contrast(1.04) saturate(.65) brightness(.95);
-      /* gentle ellipse with a long fall-off on every side so all four edges dissolve slowly into the bg */
-      -webkit-mask-image: radial-gradient(ellipse 65% 58% at 50% 50%, #000 0%, rgba(0,0,0,.95) 18%, rgba(0,0,0,.7) 42%, rgba(0,0,0,.35) 68%, rgba(0,0,0,.12) 86%, transparent 100%);
+      /* asymmetric ellipse — slightly biased right so the LEFT edge has more fall-off and dissolves cleanly into the bg */
+      -webkit-mask-image: radial-gradient(ellipse 58% 60% at 56% 50%, #000 0%, rgba(0,0,0,.92) 22%, rgba(0,0,0,.62) 46%, rgba(0,0,0,.28) 72%, rgba(0,0,0,.08) 90%, transparent 100%);
       -webkit-mask-size: 100% 100%;
       -webkit-mask-repeat: no-repeat;
-      mask-image: radial-gradient(ellipse 65% 58% at 50% 50%, #000 0%, rgba(0,0,0,.95) 18%, rgba(0,0,0,.7) 42%, rgba(0,0,0,.35) 68%, rgba(0,0,0,.12) 86%, transparent 100%);
+      mask-image: radial-gradient(ellipse 58% 60% at 56% 50%, #000 0%, rgba(0,0,0,.92) 22%, rgba(0,0,0,.62) 46%, rgba(0,0,0,.28) 72%, rgba(0,0,0,.08) 90%, transparent 100%);
       mask-size: 100% 100%;
       mask-repeat: no-repeat;
     }

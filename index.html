@@ -230,12 +230,113 @@ h1 .or{color:var(--orange);font-style:normal;font-family:"Archivo Black"}
   .sd-topnav-cta{margin-top:6px}
 }
 @media (max-width:480px){.sd-topnav{padding:10px 14px}.sd-topnav-brand{font-size:11px;letter-spacing:.12em}}
+
+/* ─── #1 CUSTOM CURSOR ─────────────────────────────────────────────────────
+   small + crosshair by default; expands into a bracketed frame over interactive
+   elements; hidden entirely on touch devices. */
+@media (hover: hover) and (pointer: fine){
+  body, body * { cursor: none !important; }
+}
+#sd-cursor{
+  position:fixed; left:0; top:0; width:14px; height:14px;
+  margin:-7px 0 0 -7px; pointer-events:none; z-index:9998;
+  mix-blend-mode:difference;
+  transition: width .25s cubic-bezier(.2,.8,.2,1), height .25s cubic-bezier(.2,.8,.2,1), opacity .3s;
+  will-change: transform, width, height;
+}
+#sd-cursor svg{ width:100%; height:100%; display:block; overflow:visible; }
+#sd-cursor .cross{ stroke:#fff; stroke-width:1.4; opacity:1; transition:opacity .25s; }
+#sd-cursor .frame{ fill:none; stroke:#fff; stroke-width:1.4; opacity:0; transition:opacity .25s; }
+#sd-cursor .dot{ fill:#FF5A1F; opacity:0; transition:opacity .25s; }
+#sd-cursor[data-mode="interactive"]{ width:42px; height:42px; margin:-21px 0 0 -21px; }
+#sd-cursor[data-mode="interactive"] .cross{ opacity:0; }
+#sd-cursor[data-mode="interactive"] .frame{ opacity:1; }
+#sd-cursor[data-mode="interactive"] .dot{ opacity:1; }
+#sd-cursor[data-mode="hidden"]{ opacity:0; }
+@media (hover: none), (pointer: coarse){ #sd-cursor{ display:none } }
+
+/* ─── #2 INTRO REVEAL ──────────────────────────────────────────────────────
+   1.6s SVG stroke-draw of the brand mark over a black overlay, then fades to
+   reveal the splash. Once-per-session via sessionStorage. */
+#sd-intro{
+  position:fixed; inset:0; z-index:9000;
+  background: radial-gradient(ellipse at center, #07080a 0%, #050607 70%, #000 100%);
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
+  opacity:1;
+  transition: opacity .9s cubic-bezier(.2,.8,.2,1);
+}
+#sd-intro.is-out{ opacity:0; }
+#sd-intro svg{ width:min(82vw, 880px); height:auto; }
+#sd-intro text{
+  font-family:"Archivo Black", sans-serif;
+  font-weight:900;
+  letter-spacing:-.02em;
+  text-anchor:middle;
+}
+#sd-intro .l1{
+  font-size:84px; fill:transparent;
+  stroke:#F2EFEA; stroke-width:1.1;
+  stroke-dasharray:2400; stroke-dashoffset:2400;
+  animation: sd-intro-draw 1.05s cubic-bezier(.4,0,.2,1) forwards,
+             sd-intro-fill .55s cubic-bezier(.2,.8,.2,1) .85s forwards;
+  filter: drop-shadow(0 0 14px rgba(255,90,31,.0));
+}
+#sd-intro .l2{
+  font-family:"Space Grotesk", sans-serif;
+  font-weight:300; font-style:italic;
+  font-size:84px; fill:transparent;
+  stroke:#FF5A1F; stroke-width:1.1;
+  stroke-dasharray:2400; stroke-dashoffset:2400;
+  animation: sd-intro-draw 1.1s cubic-bezier(.4,0,.2,1) .35s forwards,
+             sd-intro-fill-orange .55s cubic-bezier(.2,.8,.2,1) 1.2s forwards;
+}
+#sd-intro .tag{
+  font-family:"JetBrains Mono", monospace;
+  font-size:11px; letter-spacing:.4em; font-weight:400;
+  fill:rgba(242,239,234,.0); stroke:none;
+  text-transform:uppercase;
+  animation: sd-intro-tag .6s cubic-bezier(.2,.8,.2,1) 1.0s forwards;
+}
+@keyframes sd-intro-draw { to { stroke-dashoffset: 0; } }
+@keyframes sd-intro-fill { to { fill:#F2EFEA; stroke-opacity:0; } }
+@keyframes sd-intro-fill-orange { to { fill:#FF5A1F; stroke-opacity:0; } }
+@keyframes sd-intro-tag { to { fill:rgba(242,239,234,.55); } }
+@media (prefers-reduced-motion: reduce){
+  #sd-intro{ display:none; }
+}
 /* push splash UI down so it doesn't sit under the nav */
 .ui{padding-top:80px!important}
 </style>
 </head>
 <body>
 <a href="#main" style="position:absolute;left:-9999px;top:0;background:#FF5A1F;color:#0E0E0E;padding:10px 16px;font-family:Archivo Black;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;z-index:100;" onfocus="this.style.left='12px';this.style.top='12px'" onblur="this.style.left='-9999px'">Skip to main content</a>
+
+<!-- ── #2 INTRO REVEAL — once-per-session SVG stroke-draw ── -->
+<div id="sd-intro" aria-hidden="true">
+  <svg viewBox="0 0 800 260" preserveAspectRatio="xMidYMid meet">
+    <text class="l1" x="400" y="100">SHANE DOOLEY</text>
+    <text class="l2" x="400" y="190">roofing guru.</text>
+    <text class="tag" x="400" y="240">— SAINT JOHN'S · NEWFOUNDLAND —</text>
+  </svg>
+</div>
+
+<!-- ── #1 CUSTOM CURSOR — morphs by context ── -->
+<div id="sd-cursor" aria-hidden="true">
+  <svg viewBox="-12 -12 24 24">
+    <g class="cross">
+      <line x1="-6" y1="0" x2="6" y2="0"/>
+      <line x1="0" y1="-6" x2="0" y2="6"/>
+    </g>
+    <g class="frame">
+      <path d="M -10 -7 L -10 -10 L -7 -10"/>
+      <path d="M 10 -7 L 10 -10 L 7 -10"/>
+      <path d="M -10 7 L -10 10 L -7 10"/>
+      <path d="M 10 7 L 10 10 L 7 10"/>
+    </g>
+    <circle class="dot" cx="0" cy="0" r="1.6"/>
+  </svg>
+</div>
 
 <nav class="sd-topnav" aria-label="Primary">
   <a class="sd-topnav-brand" href="/" aria-label="Shane Roofing Guru — home">SHANE&nbsp;DOOLEY · <b>ROOFING&nbsp;GURU</b></a>
@@ -319,6 +420,12 @@ h1 .or{color:var(--orange);font-style:normal;font-family:"Archivo Black"}
 </main>
 <script type="module">
 import * as THREE from 'https://esm.sh/three@0.160.0';
+// #3 — postprocessing for the splash. Bloom is fed by the snowflakes (which are
+// rendered above HDR threshold so they emit a soft halo) + the brightest fog highlights.
+import { EffectComposer }   from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass }       from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass }  from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { OutputPass }       from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/OutputPass.js';
 
 const canvas = document.getElementById('gl');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true, premultipliedAlpha:false});
@@ -465,11 +572,23 @@ snow.renderOrder = 1;
 scene.add(snow);
 
 // ─────────────────────────────────────────
+//   POSTPROCESS — EffectComposer + UnrealBloomPass
+// ─────────────────────────────────────────
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+// (resolution, strength, radius, threshold)
+const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.55, 0.45, 0.78);
+composer.addPass(bloom);
+composer.addPass(new OutputPass());
+
+// ─────────────────────────────────────────
 //   resize + interaction
 // ─────────────────────────────────────────
 function resize(){
   const w=window.innerWidth, h=window.innerHeight;
   renderer.setSize(w,h,false);
+  composer.setSize(w,h);
+  bloom.setSize(w,h);
   fogU.uRes.value.set(w,h);
 }
 resize(); window.addEventListener('resize',resize);
@@ -547,12 +666,71 @@ function tick(now){
   snowGeo.attributes.position.needsUpdate = true;
   snowMat.uniforms.uTime.value = t;
 
-  renderer.render(scene,camera);
+  composer.render();
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
+
+// ─────────────────────────────────────────
+//   #1 CUSTOM CURSOR + #2 INTRO TEAR-DOWN
+// ─────────────────────────────────────────
+(() => {
+  // — INTRO REVEAL (once per session)
+  const intro = document.getElementById('sd-intro');
+  if (intro) {
+    if (sessionStorage.getItem('sd-intro-seen')) {
+      intro.remove();
+    } else {
+      sessionStorage.setItem('sd-intro-seen', '1');
+      // tear it down after the SVG draw + fill animations finish (~1.7s) + 0.9s fade
+      setTimeout(() => intro.classList.add('is-out'), 1700);
+      setTimeout(() => intro.remove(), 2700);
+    }
+  }
+
+  // — CUSTOM CURSOR (fine pointer only)
+  const cursor = document.getElementById('sd-cursor');
+  if (!cursor || !matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    cursor?.remove();
+    return;
+  }
+  let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+  const interactiveSel = 'a, button, [role="button"], input, textarea, select, .sd-bigcta, .sd-svc, .sd-job, .sd-testi, .sd-stat, .sd-card, .sd-svc-list, .sd-cta, .bbb-chip, [data-cursor="big"]';
+
+  const onMove = e => {
+    tx = e.clientX; ty = e.clientY;
+    if (!raf) raf = requestAnimationFrame(animate);
+  };
+  const animate = () => {
+    cx += (tx - cx) * 0.22;
+    cy += (ty - cy) * 0.22;
+    cursor.style.transform = `translate(${cx}px, ${cy}px)`;
+    if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
+      raf = requestAnimationFrame(animate);
+    } else {
+      raf = 0;
+    }
+  };
+
+  // mode detection — re-check whenever pointer moves (cheap)
+  let lastMode = '';
+  const checkMode = () => {
+    const el = document.elementFromPoint(tx, ty);
+    let mode = 'default';
+    if (!el) mode = 'hidden';
+    else if (el.closest && el.closest(interactiveSel)) mode = 'interactive';
+    if (mode !== lastMode) {
+      cursor.dataset.mode = mode;
+      lastMode = mode;
+    }
+  };
+
+  window.addEventListener('pointermove', e => { onMove(e); checkMode(); }, {passive: true});
+  window.addEventListener('pointerleave', () => { cursor.dataset.mode = 'hidden'; lastMode = 'hidden'; });
+  window.addEventListener('pointerenter', () => { lastMode = ''; checkMode(); });
+})();
 </script>
 
-<script src="sections.js?v=2026.04.29-glow"></script>
+<script src="sections.js?v=2026.04.29-pro"></script>
 </body>
 </html>
