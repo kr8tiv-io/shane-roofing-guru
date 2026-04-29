@@ -77,8 +77,46 @@
     .sd-card .stat{font-family:"Archivo Black",sans-serif;font-size:36px;color:${accent};line-height:1;margin-top:8px}
 
     /* §04 SERVICES */
-    .sd-services{}
-    .sd-svc-list{border-top:1px solid ${border};margin-top:32px}
+    .sd-services{position:relative;overflow:hidden}
+    /* background video — sits behind the headline + lede on the right side, blends into bg with chunky uneven-square edge */
+    .sd-svc-bgvid{
+      position:absolute;
+      top:5%;
+      right:-1%;
+      width:46%;
+      height:88%;
+      object-fit:cover;
+      z-index:0;
+      pointer-events:none;
+      opacity:.32;
+      mix-blend-mode:screen;
+      filter:contrast(1.05) saturate(.7) brightness(.95);
+      /* mask = ADD of (solid soft-edge oval core) + (chunky pixelated square dissolve filling the whole box).
+         Squares are explicit <rect>s in an inline SVG so they're crisp and unambiguously squarish.
+         The solid core keeps the centre fully visible, the dissolve fragments take over toward the edges. */
+      -webkit-mask-image:
+        radial-gradient(ellipse 60% 54% at 56% 50%, #000 0%, #000 38%, rgba(0,0,0,.5) 65%, transparent 100%),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12' preserveAspectRatio='none' shape-rendering='crispEdges'><rect x='0' y='0' width='1' height='1' fill='white'/><rect x='2' y='0' width='1' height='1' fill='white'/><rect x='5' y='0' width='2' height='1' fill='white'/><rect x='9' y='0' width='1' height='1' fill='white'/><rect x='12' y='0' width='1' height='1' fill='white'/><rect x='14' y='0' width='1' height='1' fill='white'/><rect x='1' y='1' width='2' height='1' fill='white'/><rect x='4' y='1' width='1' height='1' fill='white'/><rect x='7' y='1' width='1' height='1' fill='white'/><rect x='10' y='1' width='2' height='1' fill='white'/><rect x='13' y='1' width='1' height='1' fill='white'/><rect x='15' y='1' width='1' height='1' fill='white'/><rect x='0' y='2' width='1' height='1' fill='white'/><rect x='3' y='2' width='1' height='1' fill='white'/><rect x='6' y='2' width='2' height='2' fill='white'/><rect x='10' y='2' width='1' height='1' fill='white'/><rect x='13' y='2' width='2' height='1' fill='white'/><rect x='2' y='3' width='1' height='1' fill='white'/><rect x='4' y='3' width='1' height='1' fill='white'/><rect x='9' y='3' width='1' height='1' fill='white'/><rect x='11' y='3' width='1' height='1' fill='white'/><rect x='14' y='3' width='1' height='1' fill='white'/><rect x='0' y='4' width='1' height='1' fill='white'/><rect x='2' y='4' width='1' height='1' fill='white'/><rect x='5' y='4' width='1' height='1' fill='white'/><rect x='10' y='4' width='1' height='1' fill='white'/><rect x='13' y='4' width='1' height='1' fill='white'/><rect x='15' y='4' width='1' height='1' fill='white'/><rect x='1' y='5' width='1' height='1' fill='white'/><rect x='3' y='5' width='1' height='1' fill='white'/><rect x='12' y='5' width='1' height='1' fill='white'/><rect x='14' y='5' width='1' height='1' fill='white'/><rect x='0' y='6' width='2' height='1' fill='white'/><rect x='3' y='6' width='1' height='1' fill='white'/><rect x='13' y='6' width='1' height='1' fill='white'/><rect x='15' y='6' width='1' height='1' fill='white'/><rect x='2' y='7' width='1' height='1' fill='white'/><rect x='4' y='7' width='1' height='1' fill='white'/><rect x='11' y='7' width='1' height='1' fill='white'/><rect x='14' y='7' width='1' height='1' fill='white'/><rect x='0' y='8' width='1' height='1' fill='white'/><rect x='3' y='8' width='2' height='1' fill='white'/><rect x='12' y='8' width='2' height='1' fill='white'/><rect x='15' y='8' width='1' height='1' fill='white'/><rect x='1' y='9' width='1' height='1' fill='white'/><rect x='5' y='9' width='1' height='1' fill='white'/><rect x='10' y='9' width='1' height='1' fill='white'/><rect x='13' y='9' width='1' height='1' fill='white'/><rect x='0' y='10' width='1' height='1' fill='white'/><rect x='2' y='10' width='1' height='1' fill='white'/><rect x='4' y='10' width='1' height='1' fill='white'/><rect x='8' y='10' width='1' height='1' fill='white'/><rect x='12' y='10' width='1' height='1' fill='white'/><rect x='14' y='10' width='2' height='1' fill='white'/><rect x='1' y='11' width='2' height='1' fill='white'/><rect x='5' y='11' width='1' height='1' fill='white'/><rect x='9' y='11' width='1' height='1' fill='white'/><rect x='11' y='11' width='1' height='1' fill='white'/><rect x='13' y='11' width='1' height='1' fill='white'/><rect x='15' y='11' width='1' height='1' fill='white'/></svg>");
+      -webkit-mask-size: 100% 100%, 100% 100%;
+      -webkit-mask-repeat: no-repeat, no-repeat;
+      -webkit-mask-composite: source-over;
+      mask-image:
+        radial-gradient(ellipse 60% 54% at 56% 50%, #000 0%, #000 38%, rgba(0,0,0,.5) 65%, transparent 100%),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12' preserveAspectRatio='none' shape-rendering='crispEdges'><rect x='0' y='0' width='1' height='1' fill='white'/><rect x='2' y='0' width='1' height='1' fill='white'/><rect x='5' y='0' width='2' height='1' fill='white'/><rect x='9' y='0' width='1' height='1' fill='white'/><rect x='12' y='0' width='1' height='1' fill='white'/><rect x='14' y='0' width='1' height='1' fill='white'/><rect x='1' y='1' width='2' height='1' fill='white'/><rect x='4' y='1' width='1' height='1' fill='white'/><rect x='7' y='1' width='1' height='1' fill='white'/><rect x='10' y='1' width='2' height='1' fill='white'/><rect x='13' y='1' width='1' height='1' fill='white'/><rect x='15' y='1' width='1' height='1' fill='white'/><rect x='0' y='2' width='1' height='1' fill='white'/><rect x='3' y='2' width='1' height='1' fill='white'/><rect x='6' y='2' width='2' height='2' fill='white'/><rect x='10' y='2' width='1' height='1' fill='white'/><rect x='13' y='2' width='2' height='1' fill='white'/><rect x='2' y='3' width='1' height='1' fill='white'/><rect x='4' y='3' width='1' height='1' fill='white'/><rect x='9' y='3' width='1' height='1' fill='white'/><rect x='11' y='3' width='1' height='1' fill='white'/><rect x='14' y='3' width='1' height='1' fill='white'/><rect x='0' y='4' width='1' height='1' fill='white'/><rect x='2' y='4' width='1' height='1' fill='white'/><rect x='5' y='4' width='1' height='1' fill='white'/><rect x='10' y='4' width='1' height='1' fill='white'/><rect x='13' y='4' width='1' height='1' fill='white'/><rect x='15' y='4' width='1' height='1' fill='white'/><rect x='1' y='5' width='1' height='1' fill='white'/><rect x='3' y='5' width='1' height='1' fill='white'/><rect x='12' y='5' width='1' height='1' fill='white'/><rect x='14' y='5' width='1' height='1' fill='white'/><rect x='0' y='6' width='2' height='1' fill='white'/><rect x='3' y='6' width='1' height='1' fill='white'/><rect x='13' y='6' width='1' height='1' fill='white'/><rect x='15' y='6' width='1' height='1' fill='white'/><rect x='2' y='7' width='1' height='1' fill='white'/><rect x='4' y='7' width='1' height='1' fill='white'/><rect x='11' y='7' width='1' height='1' fill='white'/><rect x='14' y='7' width='1' height='1' fill='white'/><rect x='0' y='8' width='1' height='1' fill='white'/><rect x='3' y='8' width='2' height='1' fill='white'/><rect x='12' y='8' width='2' height='1' fill='white'/><rect x='15' y='8' width='1' height='1' fill='white'/><rect x='1' y='9' width='1' height='1' fill='white'/><rect x='5' y='9' width='1' height='1' fill='white'/><rect x='10' y='9' width='1' height='1' fill='white'/><rect x='13' y='9' width='1' height='1' fill='white'/><rect x='0' y='10' width='1' height='1' fill='white'/><rect x='2' y='10' width='1' height='1' fill='white'/><rect x='4' y='10' width='1' height='1' fill='white'/><rect x='8' y='10' width='1' height='1' fill='white'/><rect x='12' y='10' width='1' height='1' fill='white'/><rect x='14' y='10' width='2' height='1' fill='white'/><rect x='1' y='11' width='2' height='1' fill='white'/><rect x='5' y='11' width='1' height='1' fill='white'/><rect x='9' y='11' width='1' height='1' fill='white'/><rect x='11' y='11' width='1' height='1' fill='white'/><rect x='13' y='11' width='1' height='1' fill='white'/><rect x='15' y='11' width='1' height='1' fill='white'/></svg>");
+      mask-size: 100% 100%, 100% 100%;
+      mask-repeat: no-repeat, no-repeat;
+      mask-composite: add;
+    }
+    /* keep all readable / clickable content above the video */
+    .sd-services > .sd-eyebrow,
+    .sd-services > h2,
+    .sd-services > .sd-lede,
+    .sd-services > .sd-svc-list{position:relative;z-index:1}
+    @media (max-width:880px){
+      .sd-svc-bgvid{width:62%;height:60%;top:3%;right:-1%;opacity:.26}
+    }
+    /* list bg is transparent so the video bleeds faintly through behind each row */
+    .sd-svc-list{border-top:1px solid ${border};margin-top:32px;background:transparent;position:relative;z-index:1}
     .sd-svc{display:grid;grid-template-columns:80px 1fr 2fr 80px;gap:24px;align-items:center;padding:28px 0;border-bottom:1px solid ${border};transition:padding .25s,background .25s;cursor:pointer}
     .sd-svc:hover{padding:28px 24px;background:${surfaceAlt}}
     .sd-svc .num{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:${mute}}
@@ -417,6 +455,7 @@
   sec4.className = 'sd-section sd-services';
   sec4.id = 'services';
   sec4.innerHTML = `
+    <video class="sd-svc-bgvid" autoplay muted loop playsinline preload="auto" src="svc-bg.mp4" onerror="this.style.display='none'"></video>
     <div class="sd-eyebrow sd-reveal">// 04 — THE WORK <span class="ln"></span> ALL OF IT</div>
     <h2 class="sd-reveal">Every kind of roof <i>on the rock.</i></h2>
     <p class="sd-lede sd-reveal">Flat to feral, modern to heritage, residential to commercial. <b>One operator, every system, every neighbourhood.</b> From the Battery to Quidi Vidi, Long's Hill to Water Street — and beyond the bypass.</p>
@@ -766,6 +805,24 @@
       }
     });
     setupFlag();
+  }
+
+  // §04 services background video — 0.35x speed (50% then -30% slower), autoplay with gesture retry
+  const svcBgVid = sec4.querySelector('.sd-svc-bgvid');
+  if (svcBgVid) {
+    const slowSvc = () => { try { svcBgVid.playbackRate = 0.35; } catch(_){} };
+    const tryPlay = () => svcBgVid.play().then(slowSvc).catch(()=>{});
+    svcBgVid.addEventListener('loadedmetadata', () => { slowSvc(); tryPlay(); });
+    svcBgVid.addEventListener('play', slowSvc);
+    tryPlay();
+    // gesture-recovery — most autoplay-blocking browsers allow play() inside a user-event handler
+    const gestureKick = () => {
+      tryPlay();
+      ['pointerdown','touchstart','scroll','keydown'].forEach(ev =>
+        window.removeEventListener(ev, gestureKick, true));
+    };
+    ['pointerdown','touchstart','scroll','keydown'].forEach(ev =>
+      window.addEventListener(ev, gestureKick, {capture:true, once:false, passive:true}));
   }
 
   // (warm canvas glow on marquee removed — was too distracting)
