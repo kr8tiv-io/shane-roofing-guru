@@ -270,7 +270,19 @@
     @media (max-width:980px){.sd-creds{grid-template-columns:1fr 1fr}}
     .sd-creds{position:relative;overflow:hidden;transition:border-color .25s;min-width:0}
     .sd-creds-bbb,.sd-cred{min-width:0;overflow:hidden}
-    @media (max-width:680px){.sd-creds{grid-template-columns:1fr!important}.sd-creds-bbb{border-right:none;border-bottom:1px solid ${border}}.sd-cred .v{font-size:clamp(22px,5vw,32px)}}
+    @media (max-width:680px){
+      .sd-creds{grid-template-columns:1fr!important}
+      .sd-creds-bbb{
+        border-right:none;border-bottom:1px solid ${border};
+        flex-wrap:wrap;align-items:center;gap:14px 16px;padding:22px 22px;
+      }
+      .sd-creds-bbb .badge{font-size:54px;line-height:.9}
+      .sd-creds-bbb .lbl{flex:1 1 100%;font-size:9px;letter-spacing:.14em;line-height:1.55;order:3}
+      .sd-creds-bbb .lbl b{font-size:11px;letter-spacing:.08em;margin-bottom:4px}
+      .sd-bbb-seal{width:64px!important;height:auto!important}
+      .sd-cred{padding:22px 22px}
+      .sd-cred .v{font-size:clamp(22px,5vw,32px)}
+    }
     .sd-creds:hover{border-color:${accent}}
     .sd-creds::before{content:"";position:absolute;top:-50%;left:-100%;width:60%;height:200%;background:linear-gradient(105deg,transparent,rgba(255,165,60,.12),transparent);transform:skewX(-18deg);pointer-events:none;animation:sd-cred-shimmer 7s ease-in-out infinite}
     @keyframes sd-cred-shimmer{0%,100%{left:-100%}50%{left:200%}}
