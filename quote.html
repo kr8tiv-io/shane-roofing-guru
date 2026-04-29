@@ -12,6 +12,7 @@
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://mediumblue-fish-694323.hostingersite.com/quote.html">
 <meta name="theme-color" content="#FF5A1F">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="format-detection" content="telephone=yes">
 
 <!-- ═══ GEO ═══ -->
@@ -69,7 +70,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#050607; --bg2:#0c0d10; --fg:#F2EFEA; --mute:#7d7770; --line:#1F1F1F;
+  --bg:#050607; --bg2:#0c0d10; --fg:#F2EFEA; --mute:#A8A39A; --line:#1F1F1F;
   --orange:#FF5A1F; --copper:#B5651D; --surface:#101114; --field:#0a0b0d;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -84,16 +85,16 @@ body{padding-bottom:120px}
 
 /* header strip / top nav */
 header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:14px 6vw;background:rgba(5,6,7,.85);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;flex-wrap:wrap}
-.brand{font-family:"Archivo Black";font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg);text-decoration:none;display:inline-flex;align-items:center;gap:8px;line-height:1;margin-right:auto}
+.brand{font-family:"Archivo Black";font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg);text-decoration:none;display:inline-flex;align-items:center;gap:8px;line-height:1;margin-right:auto;min-height:44px}
 .brand b{color:var(--orange)}
 .brand::before{content:"";width:7px;height:7px;background:var(--orange);border-radius:50%;box-shadow:0 0 10px var(--orange);animation:nav-pulse 2.4s ease-in-out infinite}
 @keyframes nav-pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .nav-links{display:flex;gap:2px;list-style:none;margin:0;padding:0;align-items:center}
-.nav-links a{color:rgba(242,239,234,.78);text-decoration:none;padding:8px 12px;transition:color .2s,background .2s;border-radius:2px}
+.nav-links a{color:rgba(242,239,234,.78);text-decoration:none;padding:12px 12px;transition:color .2s,background .2s;border-radius:2px;min-height:44px;display:inline-flex;align-items:center}
 .nav-links a:hover{color:var(--fg);background:rgba(255,255,255,.04)}
-.nav-phone a{color:var(--orange)!important;border:1px solid rgba(255,90,31,.35);padding:8px 12px!important}
+.nav-phone a{color:var(--orange)!important;border:1px solid rgba(255,90,31,.35);padding:12px 12px!important}
 .nav-phone a:hover{background:rgba(255,90,31,.08)!important;border-color:var(--orange)}
-.back{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,239,234,.6);text-decoration:none;transition:color .2s;padding:8px 12px}
+.back{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,239,234,.78);text-decoration:none;transition:color .2s;padding:12px 12px;min-height:44px;display:inline-flex;align-items:center}
 .back:hover{color:var(--orange)}
 .back::before{content:"← ";color:var(--orange)}
 @media (max-width:680px){header{padding:10px 5vw;gap:8px}.nav-links{display:none}.brand{font-size:11px}}
@@ -115,13 +116,13 @@ header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-betwe
 /* form layout */
 form{max-width:1280px;margin:0 auto;padding:40px 6vw 0;display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start}
 .toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:6px;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.16em;text-transform:uppercase}
-.toc a{color:var(--mute);padding:10px 14px;text-decoration:none;border-left:2px solid var(--line);transition:all .2s;display:block}
+.toc a{color:var(--mute);padding:12px 14px;text-decoration:none;border-left:2px solid var(--line);transition:all .2s;display:flex;align-items:center;min-height:44px}
 .toc a:hover,.toc a.active{color:var(--fg);border-left-color:var(--orange);background:var(--surface)}
 .toc a b{color:var(--orange);margin-right:8px}
 @media (max-width:980px){
   form{grid-template-columns:1fr;gap:20px}
   .toc{position:relative;top:0;flex-direction:row;flex-wrap:wrap;gap:6px;padding:0}
-  .toc a{padding:8px 12px;border-left:none;border-bottom:2px solid var(--line);font-size:10px}
+  .toc a{padding:12px 12px;border-left:none;border-bottom:2px solid var(--line);font-size:10px}
   .toc a:hover,.toc a.active{border-bottom-color:var(--orange);background:transparent}
   .hero{padding:60px 6vw 32px}
   .hero h1{font-size:clamp(40px,11vw,72px)}
@@ -221,12 +222,14 @@ label.field input::placeholder,label.field textarea::placeholder{color:transpare
 footer{margin-top:80px;padding:40px 6vw 60px;border-top:1px solid var(--line);font-family:"JetBrains Mono";font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
 footer a{color:inherit;text-decoration:none}
 footer a:hover{color:var(--orange)}
+footer a,.hero .meta a,.hint a,.thanks .em a{min-height:44px;display:inline-flex;align-items:center}
+.hint a,.thanks .em a{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 <header role="banner">
-  <a class="brand" href="/" aria-label="Shane Roofing Guru — home">SHANE&nbsp;DOOLEY · <b>ROOFING&nbsp;GURU</b></a>
+  <a class="brand" href="/">SHANE&nbsp;DOOLEY · <b>ROOFING&nbsp;GURU</b></a>
   <ul class="nav-links" aria-label="Primary">
     <li><a href="/#work">Work</a></li>
     <li><a href="/#about">About</a></li>
@@ -236,6 +239,7 @@ footer a:hover{color:var(--orange)}
   <a class="back" href="/">Back</a>
 </header>
 
+<main id="main">
 <div class="hero">
   <div class="eye">// QUOTE REQUEST <span class="ln"></span> SAINT JOHN'S NL</div>
   <h1>Send the address.<br><i>Shane'll be there.</i></h1>
@@ -411,7 +415,7 @@ footer a:hover{color:var(--orange)}
       <div class="row full">
         <label class="field"><textarea name="notes" placeholder=" "></textarea><span class="lbl">Notes — anything Shane should know</span></label>
       </div>
-      <p class="hint">📸 <b style="color:var(--fg)">Photos help a lot.</b> When you submit, your email client will open a draft to <a href="mailto:roofingguru@gmail.com" style="color:var(--orange);text-decoration:none">roofingguru@gmail.com</a>. <b style="color:var(--fg)">Just attach your roof photos in the same draft</b> before hitting send — Shane can quote much faster with pictures.</p>
+      <p class="hint">📸 <b style="color:var(--fg)">Photos help a lot.</b> When you submit, your email client will open a draft to <a href="mailto:roofingguru@gmail.com" style="color:var(--orange)">roofingguru@gmail.com</a>. <b style="color:var(--fg)">Just attach your roof photos in the same draft</b> before hitting send — Shane can quote much faster with pictures.</p>
 
       <div class="row">
         <label class="field has-value">
@@ -449,6 +453,7 @@ footer a:hover{color:var(--orange)}
     </div>
   </div>
 </form>
+</main>
 
 <footer>
   <span>© 2026 SHANE DOOLEY · ROOFING GURU</span>

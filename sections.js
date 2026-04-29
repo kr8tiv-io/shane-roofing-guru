@@ -217,7 +217,16 @@
     .sd-job-crew .sd-job-tracer{background:conic-gradient(from var(--sd-angle,0deg), transparent 0deg, rgba(255,90,31,.95) 18deg, rgba(255,160,90,1) 28deg, rgba(255,90,31,.95) 38deg, transparent 60deg, transparent 360deg);opacity:.55}
     .sd-jobs-hint{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.4em;color:${mute};text-transform:uppercase;z-index:5;animation:sd-jobs-pulse 2.4s ease-in-out infinite;pointer-events:none}
     @keyframes sd-jobs-pulse{0%,100%{opacity:.3}50%{opacity:1}}
-    @media (max-width:780px){.sd-jobs-sec{height:auto}.sd-jobs-track{position:relative;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;padding:120px 6vw 60px;gap:14px}.sd-job{scroll-snap-align:start;width:80vw;height:54vh;min-height:340px}.sd-jobs-head{position:relative;left:auto;top:auto;right:auto;padding:36px 6vw 0}}
+    @media (max-width:780px){
+      .sd-jobs-sec{height:auto;min-height:640px}
+      .sd-jobs-track{position:relative;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;padding:120px 6vw 60px;gap:14px;-webkit-overflow-scrolling:touch}
+      .sd-job{scroll-snap-align:start;width:80vw;height:54vh;min-height:340px}
+      .sd-jobs-head{position:relative;left:auto;top:auto;right:auto;padding:36px 6vw 0}
+      .sd-jobs-sec.is-gsap-mobile{height:100svh;overflow:hidden}
+      .sd-jobs-sec.is-gsap-mobile .sd-jobs-head{position:absolute;left:6vw;right:6vw;top:30px;padding:0}
+      .sd-jobs-sec.is-gsap-mobile .sd-jobs-track{position:absolute;left:0;top:0;bottom:0;overflow:visible;scroll-snap-type:none;padding:130px 6vw 70px;align-items:center}
+      .sd-jobs-sec.is-gsap-mobile .sd-job{width:min(82vw,360px);height:52svh;min-height:320px}
+    }
 
     /* §02.7 — TESTIMONIALS + BBB ACCREDITATION (early social proof) */
     .sd-testi-sec{padding:140px 6vw 120px;position:relative;overflow:hidden}
@@ -369,6 +378,9 @@
 
     /* footer */
     .sd-foot{padding:24px 6vw;border-top:1px solid ${border};display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:${mute};background:${bg};position:relative;z-index:7}
+    @media (pointer:coarse), (max-width:780px){
+      .sd-coverage a,.sd-wx-source a,.sd-foot a{display:inline-flex;align-items:center;min-height:44px}
+    }
 
     /* reveal animation */
     .sd-reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
@@ -406,7 +418,7 @@
   // Container appended after splash content — push down 100vh so the splash gets the first viewport
   const wrap = document.createElement('div');
   wrap.id = 'sd-content';
-  wrap.style.cssText = 'position:relative;z-index:6;margin-top:100vh;background:'+bg+';color:'+fg+';';
+  wrap.style.cssText = 'position:relative;z-index:6;margin-top:100vh;background:'+bg+';color:'+fg+';overflow-x:clip;max-width:100vw;';
 
   // §02 ABOUT
   const sec2 = document.createElement('section');
@@ -436,7 +448,7 @@
   sec3.innerHTML = `
     <div class="sd-eyebrow sd-reveal">// 03 — THE WEATHER <span class="ln"></span> WORST-RATED CITY IN CANADA</div>
     <div class="sd-climate-intro sd-reveal">
-      <video class="sd-flag-video" autoplay muted loop playsinline src="flag.mp4" onerror="this.style.display='none'"></video>
+      <video class="sd-flag-video" autoplay muted loop playsinline preload="none" data-src="flag.mp4" onerror="this.style.display='none'"></video>
       <div class="sd-climate-text">
         <h2>Saint John's <i>doesn't forgive shortcuts.</i></h2>
         <p class="sd-lede">Most foggy. Most wet. Most snow. Most wind. Most freezing rain. Environment Canada calls St. John's the worst-weather major city in the country. <b>The roof you put down here isn't the roof you'd put down anywhere else.</b></p>
@@ -485,7 +497,7 @@
   sec4.className = 'sd-section sd-services';
   sec4.id = 'services';
   sec4.innerHTML = `
-    <video class="sd-svc-bgvid" autoplay muted loop playsinline preload="auto" src="svc-bg.mp4" onerror="this.style.display='none'"></video>
+    <video class="sd-svc-bgvid" autoplay muted loop playsinline preload="none" data-src="svc-bg.mp4" onerror="this.style.display='none'"></video>
     <div class="sd-eyebrow sd-reveal">// 04 — THE WORK <span class="ln"></span> ALL OF IT</div>
     <h2 class="sd-reveal">Every kind of roof <i>on the rock.</i></h2>
     <p class="sd-lede sd-reveal">Flat to feral, modern to heritage, residential to commercial. <b>One operator, every system, every neighbourhood.</b> From the Battery to Quidi Vidi, Long's Hill to Water Street — and beyond the bypass.</p>
@@ -527,7 +539,7 @@
   secMarquee.className = 'sd-marquee-sec';
   const mqRow = (cls, items) => `<div class="sd-mq-row ${cls||''}">${[...items, ...items, ...items].map(t => `<span>${t}</span>`).join('')}</div>`;
   secMarquee.innerHTML = `
-    <video class="sd-mq-video" autoplay muted loop playsinline src="hero-c.mp4" onerror="this.src='hero.mp4'"></video>
+    <video class="sd-mq-video" autoplay muted loop playsinline preload="none" data-src="hero-c.mp4" data-fallback="hero.mp4"></video>
     <div class="sd-mq-overlay"></div>
     <div class="sd-mq-scrim"></div>
     <div class="sd-mq-stage">
@@ -548,7 +560,7 @@
   secCams.id = 'cams';
   const camURL = id => `https://webcams.windy.com/webcams/public/embed/player?playerType=lifetime&webcamId=${id}&loop=false&interactive=true&forceFullScreenOnOverlayPlay=false&autoplay=1&mute=1`;
   secCams.innerHTML = `
-    <div class="sd-cams-bg"><video autoplay muted loop playsinline src="cams-bg.mp4" onerror="this.style.display='none'"></video></div>
+    <div class="sd-cams-bg"><video autoplay muted loop playsinline preload="none" data-src="cams-bg.mp4" onerror="this.style.display='none'"></video></div>
     <div class="sd-cams-grain"></div>
     <div class="sd-cams-eyebrow sd-reveal"><span class="live">LIVE</span> // 03.5 — FROM THE ROCK, RIGHT NOW <span class="ln"></span> WINDY · OPEN-METEO</div>
     <h2 class="sd-cams-h2 sd-reveal">What it looks like <i>out there.</i></h2>
@@ -556,7 +568,7 @@
     <div class="sd-cams-grid sd-reveal">
       <div class="sd-tv">
         <div class="sd-tv-screen">
-          <iframe src="${camURL('1346454043')}" loading="lazy" allow="autoplay; fullscreen" referrerpolicy="origin"></iframe>
+          <iframe title="Live webcam: Harbourside Park in Saint John's" src="${camURL('1346454043')}" loading="lazy" allow="autoplay; fullscreen" referrerpolicy="origin"></iframe>
           <div class="sd-tv-scanlines"></div>
           <div class="sd-tv-vignette"></div>
           <div class="sd-tv-badge"><span class="dot"></span>LIVE · CAM 01</div>
@@ -569,7 +581,7 @@
       </div>
       <div class="sd-tv">
         <div class="sd-tv-screen">
-          <iframe src="${camURL('1793886254')}" loading="lazy" allow="autoplay; fullscreen" referrerpolicy="origin"></iframe>
+          <iframe title="Live webcam: George Street in Saint John's" src="${camURL('1793886254')}" loading="lazy" allow="autoplay; fullscreen" referrerpolicy="origin"></iframe>
           <div class="sd-tv-scanlines"></div>
           <div class="sd-tv-vignette"></div>
           <div class="sd-tv-badge"><span class="dot"></span>LIVE · CAM 02</div>
@@ -719,45 +731,132 @@
   wrap.appendChild(sec4);
   wrap.appendChild(sec5);
 
-  // GSAP-pinned horizontal scroll for the jobs gallery (skipped on mobile —
-  // CSS @media below 780px switches the track to native scroll-snap-x instead).
+  // GSAP-pinned horizontal scroll for the jobs gallery. Mobile keeps the native
+  // swipe gallery as a fallback until ScrollTrigger successfully wires up.
   function wireJobsScroll() {
     if (!window.gsap || !window.ScrollTrigger) return;
-    if (window.innerWidth < 780) return;
     const track = secJobs.querySelector('#sd-jobs-track');
     if (!track) return;
-    const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80);
-    gsap.to(track, {
-      x: () => -getDistance(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: secJobs,
-        start: 'top top',
-        end: () => '+=' + getDistance(),
-        pin: true,
-        scrub: 0.6,
-        invalidateOnRefresh: true,
-        anticipatePin: 1
+
+    const compact = window.matchMedia('(max-width: 780px)');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let resizeTimer = 0;
+
+    const clearJobsScroll = () => {
+      const existing = ScrollTrigger.getById('sd-jobs-scroll');
+      if (existing) existing.kill(true);
+      gsap.killTweensOf(track);
+      gsap.set(track, { clearProps: 'transform' });
+    };
+
+    const setup = () => {
+      clearJobsScroll();
+      const useMobileGsap = compact.matches && !reduceMotion.matches;
+      secJobs.classList.toggle('is-gsap-mobile', useMobileGsap);
+
+      if (reduceMotion.matches) {
+        ScrollTrigger.refresh();
+        return;
       }
-    });
+
+      const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80);
+      if (getDistance() <= 8) {
+        ScrollTrigger.refresh();
+        return;
+      }
+
+      gsap.to(track, {
+        x: () => -getDistance(),
+        ease: 'none',
+        scrollTrigger: {
+          id: 'sd-jobs-scroll',
+          trigger: secJobs,
+          start: 'top top',
+          end: () => '+=' + getDistance(),
+          pin: true,
+          scrub: compact.matches ? 0.35 : 0.6,
+          invalidateOnRefresh: true,
+          anticipatePin: 1
+        }
+      });
+      ScrollTrigger.refresh();
+    };
+
+    const queueSetup = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(setup, 180);
+    };
+
+    setup();
+    window.addEventListener('resize', queueSetup, { passive: true });
+    window.addEventListener('orientationchange', queueSetup, { passive: true });
+    if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', queueSetup);
+    else if (reduceMotion.addListener) reduceMotion.addListener(queueSetup);
   }
   // wait until GSAP + ScrollTrigger are loaded by the marquee module above
+  let gsapWaitTicks = 0;
   const waitForGsap = setInterval(() => {
     if (window.gsap && window.ScrollTrigger) {
       clearInterval(waitForGsap);
       // ScrollTrigger plugin needs to be registered (marquee init only does that conditionally)
       try { gsap.registerPlugin(ScrollTrigger); } catch(_){}
       wireJobsScroll();
+    } else if (++gsapWaitTicks > 250) {
+      clearInterval(waitForGsap);
     }
   }, 60);
+
+  function hydrateLazyVideo(video, onReady, rootMargin = '700px 0px') {
+    if (!video) return () => {};
+
+    const ensureSrc = () => {
+      if (video.dataset.loaded) return;
+      if (video.dataset.src) {
+        video.src = video.dataset.src;
+        video.dataset.loaded = 'true';
+        video.load();
+      } else {
+        video.dataset.loaded = 'true';
+      }
+    };
+
+    const start = () => {
+      ensureSrc();
+      if (onReady) onReady();
+      video.play().catch(() => {});
+    };
+
+    video.addEventListener('loadedmetadata', () => { if (onReady) onReady(); });
+    video.addEventListener('canplay', () => { if (onReady) onReady(); });
+    video.addEventListener('error', () => {
+      if (video.dataset.fallback && !video.dataset.fallbackLoaded) {
+        video.dataset.fallbackLoaded = 'true';
+        video.src = video.dataset.fallback;
+        video.load();
+        video.play().catch(() => {});
+      } else {
+        video.style.display = 'none';
+      }
+    });
+
+    if (!video.dataset.src || !('IntersectionObserver' in window)) {
+      start();
+      return start;
+    }
+
+    const io = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      io.disconnect();
+      start();
+    }, { rootMargin });
+    io.observe(video);
+    return start;
+  }
 
   // ensure cams bg video autoplays and runs slow + cinematic
   const camsBgVid = secCams.querySelector('.sd-cams-bg video');
   if (camsBgVid) {
-    const start = () => { try { camsBgVid.playbackRate = 0.5; } catch(_){} camsBgVid.play().catch(()=>{}); };
-    camsBgVid.addEventListener('loadedmetadata', start);
-    camsBgVid.addEventListener('canplay', start);
-    start();
+    hydrateLazyVideo(camsBgVid, () => { try { camsBgVid.playbackRate = 0.5; } catch(_){} });
   }
 
   // Open-Meteo live weather pull for St. John's NL — refreshes every 5 min
@@ -812,9 +911,7 @@
   const mqVid = secMarquee.querySelector('.sd-mq-video');
   if (mqVid) {
     const slow = () => { try { mqVid.playbackRate = 0.1; } catch(_){} };
-    mqVid.addEventListener('loadedmetadata', slow);
-    mqVid.addEventListener('play', slow);
-    slow();
+    hydrateLazyVideo(mqVid, slow);
   }
 
   // §03 flag video — start at 1.5s, play at 0.3x (70% slower), loop back to 1.5s
@@ -827,7 +924,6 @@
         try { flagVid.currentTime = FLAG_START; } catch(_){}
       }
     };
-    flagVid.addEventListener('loadedmetadata', setupFlag);
     flagVid.addEventListener('play', setupFlag);
     // when the loop attribute resets currentTime to 0, snap it back to 1.5s
     flagVid.addEventListener('timeupdate', () => {
@@ -835,7 +931,7 @@
         try { flagVid.currentTime = FLAG_START; } catch(_){}
       }
     });
-    setupFlag();
+    hydrateLazyVideo(flagVid, setupFlag);
   }
 
   // ─── slow accelerated glow on every major title ─────────────────────────────
@@ -876,17 +972,15 @@
   const svcBgVid = sec4.querySelector('.sd-svc-bgvid');
   if (svcBgVid) {
     const slowSvc = () => { try { svcBgVid.playbackRate = 0.35; } catch(_){} };
-    const tryPlay = () => svcBgVid.play().then(slowSvc).catch(()=>{});
-    svcBgVid.addEventListener('loadedmetadata', () => { slowSvc(); tryPlay(); });
+    const tryPlay = hydrateLazyVideo(svcBgVid, slowSvc);
     svcBgVid.addEventListener('play', slowSvc);
-    tryPlay();
     // gesture-recovery — most autoplay-blocking browsers allow play() inside a user-event handler
     const gestureKick = () => {
       tryPlay();
-      ['pointerdown','touchstart','scroll','keydown'].forEach(ev =>
+      ['pointerdown','touchstart','keydown'].forEach(ev =>
         window.removeEventListener(ev, gestureKick, true));
     };
-    ['pointerdown','touchstart','scroll','keydown'].forEach(ev =>
+    ['pointerdown','touchstart','keydown'].forEach(ev =>
       window.addEventListener(ev, gestureKick, {capture:true, once:false, passive:true}));
   }
 
