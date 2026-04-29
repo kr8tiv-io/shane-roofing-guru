@@ -77,7 +77,7 @@ html, body { background: #1a1a1a; font-family: "Space Grotesk", system-ui, sans-
 }
 .safe {
   position: absolute;
-  inset: 0.25in;              /* 0.125" bleed + 0.125" safe margin = 0.25" from edge */
+  inset: 0.22in 0.22in 0.18in 0.22in;  /* tighter bottom so foot row sits comfortably inside safe */
 }
 
 /* ─────────── GUIDES (toggleable via ?guides) ─────────── */
@@ -210,22 +210,23 @@ body.show-guides .safe::before {
 .front-foot {
   display: flex; justify-content: space-between; align-items: flex-end;
   font-family: "JetBrains Mono", monospace;
-  font-size: 5pt;
-  letter-spacing: .14em;
+  font-size: 4.2pt;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(242,239,234,.55);
+  color: rgba(242,239,234,.6);
 }
-.front-foot .l { line-height: 1.55; }
+.front-foot .l { line-height: 1.45; white-space: nowrap; }
 .front-foot .l b { color: var(--fg); }
-.front-foot .r { text-align: right; line-height: 1.55; }
+.front-foot .r { text-align: right; line-height: 1.4; white-space: nowrap; }
 .front-foot .r .ph {
   font-family: "Archivo Black", sans-serif;
-  font-size: 8pt;
-  letter-spacing: .04em;
+  font-size: 7.5pt;
+  letter-spacing: .03em;
   color: var(--fg);
   display: block;
+  white-space: nowrap;
 }
-.front-foot .r .web { color: var(--orange); letter-spacing: .12em; }
+.front-foot .r .web { color: var(--orange); letter-spacing: .1em; font-size: 4.5pt; }
 
 /* ═════════════════════════════════════════════════════════════════════
    BACK
@@ -260,7 +261,7 @@ body.show-guides .safe::before {
 }
 
 .back-top {
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: space-between; align-items: center; gap: 8pt;
 }
 .back-top .brand {
   display: flex; align-items: center; gap: 5px;
@@ -279,8 +280,8 @@ body.show-guides .safe::before {
 .back-top .brand b { color: var(--orange); }
 .back-top .where {
   font-family: "JetBrains Mono", monospace;
-  font-size: 5pt;
-  letter-spacing: .18em;
+  font-size: 4.2pt;
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: rgba(242,239,234,.55);
   white-space: nowrap;
@@ -348,23 +349,24 @@ body.show-guides .safe::before {
 }
 .back-foot .contact {
   font-family: "JetBrains Mono", monospace;
-  font-size: 5pt;
+  font-size: 4.5pt;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: rgba(242,239,234,.85);
   display: flex; flex-direction: column;
   gap: 0;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 .back-foot .contact .ph {
   font-family: "Archivo Black", sans-serif;
-  font-size: 7pt;
+  font-size: 6.5pt;
   letter-spacing: .03em;
   color: var(--fg);
   text-transform: none;
   white-space: nowrap;
 }
-.back-foot .contact .row { display: flex; gap: 6pt; }
+.back-foot .contact .row { display: flex; gap: 5pt; flex-wrap: nowrap; white-space: nowrap; }
+.back-foot .contact .row span { white-space: nowrap; }
 .back-foot .contact .web { color: var(--orange); }
 .back-foot .stamp {
   font-family: "JetBrains Mono", monospace;
@@ -440,7 +442,7 @@ body.show-guides .safe::before {
 
       <div class="front-foot">
         <div class="l">
-          EST. 2006 · <b>BONDED &amp; INSURED</b><br>
+          <b>EST. 2006</b><br>
           A+ BBB ACCREDITED · ATLANTIC PROVINCES
         </div>
         <div class="r">
@@ -486,7 +488,7 @@ body.show-guides .safe::before {
         </div>
         <div class="stamp">
           <span class="bbb"><span class="a">A+</span> BBB</span><br>
-          EST. 2006 · BONDED &amp; INSURED
+          EST. 2006
         </div>
       </div>
     </div>
