@@ -49,9 +49,25 @@
     .sd-section{position:relative;z-index:6;background:${bg};color:${fg};padding:120px 6vw;border-top:1px solid ${border};font-family:"Space Grotesk",system-ui,sans-serif;}
     .sd-section .sd-eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:${accent};margin-bottom:24px;display:flex;align-items:center;gap:14px}
     .sd-section .sd-eyebrow .ln{flex:1;height:1px;background:${border}}
-    .sd-section h2{font-family:"Archivo Black",sans-serif;font-size:clamp(36px,6vw,96px);line-height:.95;letter-spacing:-.025em;text-transform:uppercase;margin-bottom:32px;max-width:14ch}
+    .sd-section h2{font-family:"Archivo Black",sans-serif;font-size:clamp(36px,6vw,96px);line-height:.95;letter-spacing:-.025em;text-transform:uppercase;margin-bottom:32px;max-width:14ch;position:relative;isolation:isolate;--sd-mx:50%;--sd-my:50%;--sd-glow:0;will-change:filter,transform;transition:filter .8s cubic-bezier(.22,.8,.22,1),transform .8s cubic-bezier(.22,.8,.22,1);transform:translateZ(0)}
     .sd-section h2 i{font-style:italic;font-family:"Space Grotesk",sans-serif;font-weight:300;color:${accent}}
     .sd-section h2 .or{color:${accent};font-style:normal;font-family:"Archivo Black",sans-serif}
+    /* GPU-accelerated bloom on every section title — slow ramp-up driven by --sd-glow,
+       and a mouse-following spotlight via --sd-mx / --sd-my that gets painted as a radial
+       glow behind the letters. drop-shadow stays on the compositor (it's an accelerated filter). */
+    .sd-section h2::before, .sd-testi-h2::before, .sd-cta-headline::before, .sd-climate-text h2::before{
+      content:"";position:absolute;inset:-12% -8%;z-index:-1;pointer-events:none;
+      background:radial-gradient(circle 280px at var(--sd-mx,50%) var(--sd-my,50%), rgba(255,140,40,calc(.55*var(--sd-glow,0))) 0%, rgba(255,90,31,calc(.32*var(--sd-glow,0))) 28%, transparent 70%);
+      filter:blur(28px);
+      transition:opacity 1.1s cubic-bezier(.22,.8,.22,1);
+      mix-blend-mode:screen;
+      will-change:transform,opacity;
+    }
+    .sd-section h2:hover, .sd-testi-h2:hover, .sd-cta-headline:hover, .sd-climate-text h2:hover{
+      filter:drop-shadow(0 0 18px rgba(255,140,40,.45)) drop-shadow(0 0 36px rgba(255,90,31,.28));
+    }
+    /* same trick for the testimonials banner H2 + CTA bigtext + climate H2 */
+    .sd-testi-h2, .sd-cta-headline, .sd-climate-text h2{position:relative;isolation:isolate;--sd-mx:50%;--sd-my:50%;--sd-glow:0;will-change:filter,transform;transition:filter .8s cubic-bezier(.22,.8,.22,1)}
     .sd-lede{font-size:clamp(16px,1.5vw,21px);line-height:1.5;color:${subText};max-width:680px;margin-bottom:48px}
     .sd-lede b{color:${fg}}
 
@@ -81,21 +97,21 @@
     /* background video — sits behind the headline + lede on the right side, blends into bg with chunky uneven-square edge */
     .sd-svc-bgvid{
       position:absolute;
-      top:5%;
-      right:-1%;
-      width:46%;
-      height:88%;
+      top:14%;
+      right:2%;
+      width:32%;
+      height:62%;
       object-fit:cover;
       z-index:0;
       pointer-events:none;
-      opacity:.18;
+      opacity:.2;
       mix-blend-mode:screen;
       filter:contrast(1.04) saturate(.65) brightness(.95);
-      /* clean soft fade — no grid, no chunks, just a gentle ellipse that dissolves into the bg */
-      -webkit-mask-image: radial-gradient(ellipse 78% 62% at 56% 50%, #000 0%, #000 35%, rgba(0,0,0,.65) 60%, rgba(0,0,0,.25) 82%, transparent 100%);
+      /* gentle ellipse with a long fall-off on every side so all four edges dissolve slowly into the bg */
+      -webkit-mask-image: radial-gradient(ellipse 65% 58% at 50% 50%, #000 0%, rgba(0,0,0,.95) 18%, rgba(0,0,0,.7) 42%, rgba(0,0,0,.35) 68%, rgba(0,0,0,.12) 86%, transparent 100%);
       -webkit-mask-size: 100% 100%;
       -webkit-mask-repeat: no-repeat;
-      mask-image: radial-gradient(ellipse 78% 62% at 56% 50%, #000 0%, #000 35%, rgba(0,0,0,.65) 60%, rgba(0,0,0,.25) 82%, transparent 100%);
+      mask-image: radial-gradient(ellipse 65% 58% at 50% 50%, #000 0%, rgba(0,0,0,.95) 18%, rgba(0,0,0,.7) 42%, rgba(0,0,0,.35) 68%, rgba(0,0,0,.12) 86%, transparent 100%);
       mask-size: 100% 100%;
       mask-repeat: no-repeat;
     }
@@ -105,12 +121,24 @@
     .sd-services > .sd-lede,
     .sd-services > .sd-svc-list{position:relative;z-index:1}
     @media (max-width:880px){
-      .sd-svc-bgvid{width:62%;height:60%;top:3%;right:-1%;opacity:.26}
+      .sd-svc-bgvid{width:46%;height:42%;top:8%;right:2%;opacity:.16}
     }
     /* list bg is transparent so the video bleeds faintly through behind each row */
     .sd-svc-list{border-top:1px solid ${border};margin-top:32px;background:transparent;position:relative;z-index:1}
-    .sd-svc{display:grid;grid-template-columns:80px 1fr 2fr 80px;gap:24px;align-items:center;padding:28px 0;border-bottom:1px solid ${border};transition:padding .25s,background .25s;cursor:pointer}
+    .sd-svc{display:grid;grid-template-columns:80px 1fr 2fr 80px;gap:24px;align-items:center;padding:28px 0;border-bottom:1px solid ${border};transition:padding .25s,background .25s;cursor:pointer;position:relative}
     .sd-svc:hover{padding:28px 24px;background:${surfaceAlt}}
+    /* tracer bead sweeping along the bottom edge of each service row — a thin amber comet */
+    .sd-svc::before{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg, transparent 0%, transparent 38%, rgba(255,140,40,.0) 44%, rgba(255,180,90,.85) 50%, rgba(255,140,40,.0) 56%, transparent 62%, transparent 100%);background-size:240% 100%;background-position:-120% 0;animation:sd-svc-sweep 8.5s cubic-bezier(.45,.0,.55,1) infinite;pointer-events:none;opacity:.55;mix-blend-mode:screen}
+    .sd-svc:hover::before{opacity:1;animation-duration:3.5s;filter:drop-shadow(0 0 6px rgba(255,140,40,.6))}
+    /* stagger sweeps so the rows feel alive but not in lockstep */
+    .sd-svc:nth-child(2)::before{animation-delay:-1.2s}
+    .sd-svc:nth-child(3)::before{animation-delay:-2.6s;animation-duration:10s}
+    .sd-svc:nth-child(4)::before{animation-delay:-4.1s;animation-duration:9s}
+    .sd-svc:nth-child(5)::before{animation-delay:-5.7s}
+    .sd-svc:nth-child(6)::before{animation-delay:-7.0s;animation-duration:11s}
+    .sd-svc:nth-child(7)::before{animation-delay:-8.5s;animation-duration:8s}
+    .sd-svc:nth-child(8)::before{animation-delay:-3.0s;animation-duration:9.5s}
+    @keyframes sd-svc-sweep{0%{background-position:-120% 0}100%{background-position:220% 0}}
     .sd-svc .num{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:${mute}}
     .sd-svc .name{font-family:"Archivo Black",sans-serif;font-size:clamp(22px,2.4vw,38px);text-transform:uppercase;letter-spacing:-.015em;line-height:1}
     .sd-svc .name em{font-style:italic;color:${accent};font-family:"Space Grotesk",sans-serif;font-weight:300}
@@ -177,6 +205,16 @@
     .sd-job-crew::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,90,31,.18),transparent 35%,transparent 65%,rgba(255,90,31,.18));mix-blend-mode:screen;pointer-events:none;z-index:2}
     .sd-job-crew::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 1px,rgba(255,90,31,.10) 1px 2px);mix-blend-mode:screen;pointer-events:none;z-index:2}
     .sd-job-crew .sd-job-type{color:#fff;background:${accent};border-color:${accent}}
+    /* GPU-composited light tracer ring around each job card — subtle, slow at rest, brighter on hover.
+       Uses @property --sd-angle so the conic-gradient angle interpolates smoothly. */
+    .sd-job-tracer{position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;opacity:.28;background:conic-gradient(from var(--sd-angle,0deg), transparent 0deg, rgba(255,140,40,.85) 18deg, rgba(255,215,170,.95) 28deg, rgba(255,140,40,.85) 38deg, transparent 60deg, transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:sd-tracer-rot 9s linear infinite;transition:opacity .35s,filter .35s;filter:blur(.4px)}
+    .sd-job:hover .sd-job-tracer{opacity:.85;animation-duration:4.5s;filter:blur(0) drop-shadow(0 0 6px rgba(255,140,40,.55))}
+    /* stagger so cards aren't synchronised */
+    .sd-job:nth-child(3n+1) .sd-job-tracer{animation-delay:-1.2s}
+    .sd-job:nth-child(3n+2) .sd-job-tracer{animation-delay:-3.7s;animation-duration:11s}
+    .sd-job:nth-child(3n)   .sd-job-tracer{animation-delay:-5.5s;animation-duration:8s}
+    /* CREW card uses pure orange to match its frame */
+    .sd-job-crew .sd-job-tracer{background:conic-gradient(from var(--sd-angle,0deg), transparent 0deg, rgba(255,90,31,.95) 18deg, rgba(255,160,90,1) 28deg, rgba(255,90,31,.95) 38deg, transparent 60deg, transparent 360deg);opacity:.55}
     .sd-jobs-hint{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.4em;color:${mute};text-transform:uppercase;z-index:5;animation:sd-jobs-pulse 2.4s ease-in-out infinite;pointer-events:none}
     @keyframes sd-jobs-pulse{0%,100%{opacity:.3}50%{opacity:1}}
     @media (max-width:780px){.sd-jobs-sec{height:auto}.sd-jobs-track{position:relative;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;padding:120px 6vw 60px;gap:14px}.sd-job{scroll-snap-align:start;width:80vw;height:54vh;min-height:340px}.sd-jobs-head{position:relative;left:auto;top:auto;right:auto;padding:36px 6vw 0}}
@@ -659,6 +697,7 @@
           <div class="sd-job-scan"></div>
           <div class="sd-job-rays"></div>
           <div class="sd-job-vignette"></div>
+          <div class="sd-job-tracer"></div>
           <div class="sd-job-num">// ${j.n}</div>
           <div class="sd-job-type">${j.type}</div>
           <div class="sd-job-cap">
@@ -798,6 +837,40 @@
     });
     setupFlag();
   }
+
+  // ─── slow accelerated glow on every major title ─────────────────────────────
+  // each title gets a radial spotlight that follows the cursor with smooth lerp,
+  // plus a slow --sd-glow ramp from 0 → 1 over 700ms when the pointer enters and
+  // 1 → 0 over 1200ms when it leaves (so the bloom feels heavy / luxurious, not snappy).
+  (() => {
+    const titles = document.querySelectorAll('.sd-section h2, .sd-testi-h2, .sd-cta-headline, .sd-climate-text h2');
+    titles.forEach(el => {
+      let tx = 50, ty = 50, cx = 50, cy = 50, glow = 0, target = 0, raf = 0;
+      const tick = () => {
+        // lerp position + glow toward targets
+        cx += (tx - cx) * 0.12;
+        cy += (ty - cy) * 0.12;
+        glow += (target - glow) * (target > glow ? 0.04 : 0.022); // ramp up faster than fall-off
+        el.style.setProperty('--sd-mx', cx.toFixed(2) + '%');
+        el.style.setProperty('--sd-my', cy.toFixed(2) + '%');
+        el.style.setProperty('--sd-glow', glow.toFixed(3));
+        if (Math.abs(target - glow) > 0.001 || Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = 0;
+        }
+      };
+      const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
+      el.addEventListener('pointermove', e => {
+        const r = el.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width) * 100;
+        ty = ((e.clientY - r.top) / r.height) * 100;
+        kick();
+      });
+      el.addEventListener('pointerenter', () => { target = 1; kick(); });
+      el.addEventListener('pointerleave', () => { target = 0; kick(); });
+    });
+  })();
 
   // §04 services background video — 0.35x speed (50% then -30% slower), autoplay with gesture retry
   const svcBgVid = sec4.querySelector('.sd-svc-bgvid');
