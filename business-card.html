@@ -108,22 +108,26 @@ body.show-guides .safe::before {
    FRONT
    ═════════════════════════════════════════════════════════════════════ */
 .card.front {
+  /* same hero imagery as the website splash — extracted from hero.mp4 — under
+     a darkening gradient so the typography stays legible on press */
   background:
-    radial-gradient(ellipse 90% 80% at 100% 100%, rgba(255,90,31,.10), transparent 60%),
-    radial-gradient(ellipse 120% 100% at 0% 0%, rgba(31,70,138,.06), transparent 65%),
-    linear-gradient(135deg, #07080a 0%, #050607 50%, #0a0b0d 100%);
+    linear-gradient(135deg, rgba(5,6,7,.62) 0%, rgba(5,6,7,.32) 50%, rgba(5,6,7,.78) 100%),
+    radial-gradient(ellipse 90% 80% at 100% 100%, rgba(255,90,31,.18), transparent 60%),
+    radial-gradient(ellipse 120% 100% at 0% 0%, rgba(31,70,138,.10), transparent 65%),
+    url("card-bg.jpg") center/cover no-repeat,
+    #050607;
 }
 
-/* very subtle pinpoint snowfield — printed as small amber dots */
+/* subtle pinpoint snowfield over the photo — keeps the splash texture even in print */
 .card.front::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(rgba(255,255,255,.08) 0.6px, transparent 0.7px);
+    radial-gradient(rgba(255,255,255,.10) 0.6px, transparent 0.7px);
   background-size: 14px 14px;
   pointer-events: none;
-  opacity: .55;
+  opacity: .45;
 }
 
 /* faint orange diagonal accent line bleeds off the bottom-left corner */
