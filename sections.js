@@ -315,6 +315,22 @@
       .sd-cta-row .right{align-items:flex-start}
       .sd-coverage{text-align:left}
     }
+    /* tighter mobile — small phones (375 / 390 / 414) */
+    @media (max-width:600px){
+      .sd-section{padding:60px 4vw}
+      .sd-climate-grid{grid-template-columns:1fr}
+      .sd-card{padding:24px 20px;min-height:0}
+      .sd-card .stat{font-size:clamp(28px,8vw,36px);overflow-wrap:anywhere;word-break:break-word}
+      .sd-card .ttl{font-size:20px;overflow-wrap:anywhere}
+      .sd-about-stats{grid-template-columns:1fr 1fr}
+      .sd-stat{padding:22px 18px}
+      .sd-stat .v{font-size:clamp(28px,7vw,40px);overflow-wrap:anywhere}
+      .sd-cta-headline{font-size:clamp(44px,12vw,76px)}
+      .sd-testi-h2{font-size:clamp(32px,9vw,56px)}
+      .sd-climate-text h2{font-size:clamp(28px,8vw,44px)}
+      .sd-eyebrow{font-size:10px;letter-spacing:.2em}
+      .sd-foot{font-size:10px;letter-spacing:.1em;flex-direction:column;align-items:flex-start}
+    }
   `;
   document.head.appendChild(style);
 
