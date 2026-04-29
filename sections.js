@@ -803,9 +803,9 @@
     if (!rows.length) return;
     // Each row's content is duplicated 3× so a full loop is -33.333%
     const tracks = [
-      { dir: -1, dur: 19 },   // row 1 → drifts left  (was 28, +50% speed)
-      { dir:  1, dur: 24 },   // row 2 → drifts right (was 36, +50% speed)
-      { dir: -1, dur: 21 },   // row 3 → drifts left  (was 32, +50% speed)
+      { dir: -1, dur: 23 },   // row 1 → drifts left  (was 19, -20% speed)
+      { dir:  1, dur: 29 },   // row 2 → drifts right (was 24, -20% speed)
+      { dir: -1, dur: 25 },   // row 3 → drifts left  (was 21, -20% speed)
     ];
     try {
       if (!window.gsap) throw new Error('gsap missing');
@@ -822,9 +822,9 @@
       css.textContent = `
         @keyframes sd-mq-l { from{transform:translateX(0)} to{transform:translateX(-33.333%)} }
         @keyframes sd-mq-r { from{transform:translateX(-33.333%)} to{transform:translateX(0)} }
-        .sd-mq-row { animation: sd-mq-l 19s linear infinite; }
-        .sd-mq-row.b { animation: sd-mq-r 24s linear infinite; }
-        .sd-mq-row:nth-child(3) { animation: sd-mq-l 21s linear infinite; }
+        .sd-mq-row { animation: sd-mq-l 23s linear infinite; }
+        .sd-mq-row.b { animation: sd-mq-r 29s linear infinite; }
+        .sd-mq-row:nth-child(3) { animation: sd-mq-l 25s linear infinite; }
       `;
       document.head.appendChild(css);
     }
